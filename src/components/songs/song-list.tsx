@@ -26,13 +26,17 @@ export function SongList({ songs, query, canManage }: Props) {
             <Link href="/songs/new" className={buttonClassName({ variant: "default" })}>
               + 응원가 등록
             </Link>
-          ) : null}
+          ) : (
+            <Link href="/requests/new" className={buttonClassName({ variant: "default" })}>
+              + 응원가 신청
+            </Link>
+          )}
         </CardHeader>
 
         <CardContent>
           {!canManage ? (
             <div className="mb-4 rounded-lg border border-zinc-800/80 bg-zinc-900/40 px-4 py-3 text-sm text-zinc-300">
-              등록, 수정, 삭제는 관리자 로그인 후 사용할 수 있습니다.
+              등록, 수정, 삭제는 관리자 로그인 후 사용할 수 있습니다. 일반 사용자는 신청 게시판에서 응원가를 요청할 수 있습니다.
             </div>
           ) : null}
 
@@ -46,4 +50,3 @@ export function SongList({ songs, query, canManage }: Props) {
     </div>
   );
 }
-

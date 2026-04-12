@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-type BadgeVariant = "default" | "secondary" | "outline";
+type BadgeVariant = "default" | "secondary" | "outline" | "destructive";
 
 export function Badge({
   className,
@@ -16,6 +16,7 @@ export function Badge({
         variant === "default" && "bg-zinc-100 text-zinc-950",
         variant === "secondary" && "bg-zinc-800 text-zinc-100",
         variant === "outline" && "border border-zinc-700 text-zinc-100",
+        variant === "destructive" && "bg-red-950 text-red-200",
         className
       )}
       {...props}

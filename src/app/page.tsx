@@ -8,37 +8,35 @@ export default async function HomePage() {
   const admin = await isAdminSession();
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <Card>
+    <div className="grid gap-4 md:grid-cols-3">
+      <Card className="md:col-span-2">
         <CardHeader>
           <CardTitle>응원가 DB</CardTitle>
           <CardDescription>
-            로블록스 야구게임에서 사용하는 응원가 정보를 조회하고, 관리자만 등록/수정/삭제할 수 있는 관리 페이지입니다.
+            로블록스 야구게임 응원가 정보를 조회하고, 관리자는 직접 등록하고, 일반 사용자는 신청 게시판을 통해 등록 요청할 수 있습니다.
           </CardDescription>
 
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/songs" className={buttonClassName({ variant: "default" })}>
-              목록 보기
+              응원가 목록
             </Link>
-
+            <Link href="/requests" className={buttonClassName({ variant: "secondary" })}>
+              응원가 신청 게시판
+            </Link>
             {admin ? (
-              <Link href="/songs/new" className={buttonClassName({ variant: "secondary" })}>
-                새 응원가 등록
+              <Link href="/songs/new" className={buttonClassName({ variant: "ghost" })}>
+                관리자 등록
               </Link>
-            ) : (
-              <Link href="/admin/login" className={buttonClassName({ variant: "secondary" })}>
-                관리자 로그인
-              </Link>
-            )}
+            ) : null}
           </div>
         </CardHeader>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>빠른 안내</CardTitle>
+          <CardTitle>운영 흐름</CardTitle>
           <CardDescription>
-            검색과 필터는 URL 쿼리스트링 기반으로 동작합니다. 관리자 로그인 전에는 조회만 가능하고, 로그인 후 등록/수정/삭제가 열립니다.
+            신청은 누구나 가능하고, 관리자가 승인한 항목만 실제 응원가 목록으로 반영됩니다. 승인 전까지는 신청 게시판에서 상태를 확인할 수 있습니다.
           </CardDescription>
         </CardHeader>
       </Card>

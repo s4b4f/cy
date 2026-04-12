@@ -28,6 +28,10 @@ export async function findSongById(id: string) {
   return prisma.song.findUnique({ where: { id } });
 }
 
+export async function findSongByAssetId(assetId: string) {
+  return prisma.song.findFirst({ where: { assetId } });
+}
+
 export async function createSong(data: Omit<Song, "id" | "createdAt" | "updatedAt">) {
   return prisma.song.create({ data });
 }
@@ -39,4 +43,3 @@ export async function updateSong(id: string, data: Partial<Omit<Song, "id" | "cr
 export async function deleteSong(id: string) {
   return prisma.song.delete({ where: { id } });
 }
-

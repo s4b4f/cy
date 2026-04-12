@@ -14,6 +14,12 @@ enum SongType {
   CUSTOM
 }
 
+enum SongRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Song {
   id             String   @id @default(cuid())
   name           String
@@ -31,4 +37,27 @@ model Song {
   @@index([playerName])
   @@index([customTypeName])
   @@index([createdAt])
+}
+
+model SongRequest {
+  id              String            @id @default(cuid())
+  requesterName   String?
+  requestNote     String?
+  name            String
+  teamName        String
+  playerName      String?
+  type            SongType
+  customTypeName  String?
+  assetId         String
+  status          SongRequestStatus @default(PENDING)
+  rejectionReason String?
+  reviewedAt      DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([status, createdAt])
+  @@index([name])
+  @@index([teamName])
+  @@index([playerName])
+  @@index([assetId])
 }
