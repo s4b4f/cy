@@ -80,6 +80,22 @@ export async function createSong(input: unknown) {
   return repo.createSong(normalizeForDb(parsed.data));
 }
 
+export async function upsertSongByAssetId(input: unknown) {
+  const parsed = songUpsertSchema.safeParse(input);
+  if (!parsed.success) throw new SongValidationError(parsed.error);
+
+  const data = normalizeForDb(parsed.data);
+  const existing = await repo.findSongByAssetId(data.assetId);
+
+  if (existing) {
+    const updated = await repo.updateSong(existing.id, data);
+    return { song: updated, created: false as const };
+  }
+
+  const created = await repo.createSong(data);
+  return { song: created, created: true as const };
+}
+
 export async function updateSong(id: string, input: unknown) {
   const parsed = songUpsertSchema.safeParse(input);
   if (!parsed.success) throw new SongValidationError(parsed.error);

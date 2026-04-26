@@ -3,12 +3,12 @@
 import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import type { SongListQuery, SongType } from "@/features/songs/types";
-import { SONG_TYPES, SONG_TYPE_LABEL } from "@/features/songs/constants";
 import { Button } from "@/components/ui/button";
+import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
+import { SONG_TYPES, SONG_TYPE_LABEL } from "@/features/songs/constants";
+import type { SongListQuery, SongType } from "@/features/songs/types";
 
 type Props = {
   initialQuery: SongListQuery;
@@ -16,11 +16,13 @@ type Props = {
 
 function buildQueryString(query: SongListQuery) {
   const params = new URLSearchParams();
+
   if (query.name) params.set("name", query.name);
   if (query.teamName) params.set("teamName", query.teamName);
   if (query.playerName) params.set("playerName", query.playerName);
   if (query.type) params.set("type", query.type);
   if (query.customTypeName) params.set("customTypeName", query.customTypeName);
+
   const queryString = params.toString();
   return queryString.length > 0 ? `?${queryString}` : "";
 }
@@ -35,8 +37,9 @@ export function SongFilter({ initialQuery }: Props) {
   const [type, setType] = React.useState<SongType | "">((initialQuery.type as SongType | undefined) ?? "");
   const [customTypeName, setCustomTypeName] = React.useState(initialQuery.customTypeName ?? "");
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
+  function submit(event: React.FormEvent) {
+    event.preventDefault();
+
     const nextQuery: SongListQuery = {
       name: name.trim() || undefined,
       teamName: teamName.trim() || undefined,
@@ -44,6 +47,7 @@ export function SongFilter({ initialQuery }: Props) {
       type: type || undefined,
       customTypeName: customTypeName.trim() || undefined
     };
+
     router.push(`${pathname}${buildQueryString(nextQuery)}`);
   }
 
@@ -59,58 +63,49 @@ export function SongFilter({ initialQuery }: Props) {
   const showCustomTypeName = type === "CUSTOM" || customTypeName.trim().length > 0;
 
   return (
-    <Card>
-      <CardContent className="pt-5">
-        <form onSubmit={submit} className="grid gap-3 md:grid-cols-6">
-          <div className="md:col-span-2">
-            <label className="mb-1 block text-xs text-zinc-400">응원가 이름</label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="예) 승리를 위하여" />
-          </div>
-          <div className="md:col-span-2">
-            <label className="mb-1 block text-xs text-zinc-400">팀 이름</label>
-            <Input value={teamName} onChange={(e) => setTeamName(e.target.value)} placeholder="예) 서울" />
-          </div>
-          <div className="md:col-span-2">
-            <label className="mb-1 block text-xs text-zinc-400">선수 이름</label>
-            <Input value={playerName} onChange={(e) => setPlayerName(e.target.value)} placeholder="예) 홍길동" />
-          </div>
+    <form onSubmit={submit} className="grid gap-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <Field label="응원가 이름" className="xl:col-span-2">
+          <Input value={name} onChange={(event) => setName(event.target.value)} placeholder="예: 승리를 위하여" />
+        </Field>
 
-          <div className="md:col-span-2">
-            <label className="mb-1 block text-xs text-zinc-400">타입</label>
-            <Select value={type} onChange={(e) => setType(e.target.value as SongType | "")}>
-              <option value="">전체</option>
-              {SONG_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {SONG_TYPE_LABEL[t]}
-                </option>
-              ))}
-            </Select>
-          </div>
+        <Field label="팀 이름">
+          <Input value={teamName} onChange={(event) => setTeamName(event.target.value)} placeholder="예: 서울" />
+        </Field>
 
-          {showCustomTypeName ? (
-            <div className="md:col-span-2">
-              <label className="mb-1 block text-xs text-zinc-400">기타 타입 이름 (CUSTOM)</label>
-              <Input
-                value={customTypeName}
-                onChange={(e) => setCustomTypeName(e.target.value)}
-                placeholder="예) 이벤트 / 콜앤리스폰스"
-              />
-            </div>
-          ) : (
-            <div className="hidden md:block md:col-span-2" />
-          )}
+        <Field label="선수 이름">
+          <Input value={playerName} onChange={(event) => setPlayerName(event.target.value)} placeholder="예: 홍길동" />
+        </Field>
 
-          <div className="flex items-end gap-2 md:col-span-2">
-            <Button type="submit">검색</Button>
-            <Button type="button" variant="secondary" onClick={reset}>
-              초기화
-            </Button>
-          </div>
-        </form>
+        <Field label="타입">
+          <Select value={type} onChange={(event) => setType(event.target.value as SongType | "")}>
+            <option value="">전체</option>
+            {SONG_TYPES.map((item) => (
+              <option key={item} value={item}>
+                {SONG_TYPE_LABEL[item]}
+              </option>
+            ))}
+          </Select>
+        </Field>
 
-        <div className="mt-3 text-xs text-zinc-500">정렬: 최신순</div>
-      </CardContent>
-    </Card>
+        {showCustomTypeName ? (
+          <Field label="기타 타입 이름" className="xl:col-span-2">
+            <Input
+              value={customTypeName}
+              onChange={(event) => setCustomTypeName(event.target.value)}
+              placeholder="예: 이벤트, 콜앤리스폰스"
+            />
+          </Field>
+        ) : null}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <Button type="submit">검색 적용</Button>
+        <Button type="button" variant="secondary" onClick={reset}>
+          필터 초기화
+        </Button>
+        <span className="text-xs text-zinc-500">정렬은 최신 등록순으로 고정됩니다.</span>
+      </div>
+    </form>
   );
 }
-

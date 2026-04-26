@@ -23,9 +23,8 @@ export function LogoutButton() {
   }
 
   return (
-    <Button type="button" variant="secondary" onClick={logout} disabled={submitting}>
+    <Button type="button" variant="secondary" size="sm" onClick={logout} disabled={submitting}>
       {submitting ? "로그아웃 중..." : "로그아웃"}
     </Button>
   );
 }
-

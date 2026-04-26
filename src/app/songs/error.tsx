@@ -11,15 +11,14 @@ export default function SongsError({ error, reset }: { error: Error & { digest?:
   }, [error]);
 
   return (
-    <Card>
+    <Card className="mx-auto max-w-2xl">
       <CardHeader>
-        <CardTitle>문제가 발생했습니다</CardTitle>
+        <CardTitle>응원가 화면을 불러오지 못했습니다</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-center justify-between gap-3">
-        <div className="text-sm text-zinc-400">요청을 처리하지 못했습니다. 잠시 후 다시 시도해주세요.</div>
+      <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-sm leading-6 text-zinc-400">일시적인 오류일 수 있습니다. 다시 시도 후에도 반복되면 최근 변경 사항이나 서버 로그를 확인하세요.</div>
         <Button onClick={reset}>다시 시도</Button>
       </CardContent>
     </Card>
   );
 }
-

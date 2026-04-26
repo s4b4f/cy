@@ -25,8 +25,8 @@ export function AssetIdCopy({ assetId, className }: { assetId: string; className
         type="button"
         onClick={copy}
         className={cn(
-          "rounded-md bg-zinc-900 px-2 py-1 font-mono text-xs text-zinc-200",
-          "hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+          "rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-2 font-mono text-xs text-zinc-200",
+          "hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
         )}
         aria-label="assetId 복사"
         title="클릭하여 복사"
@@ -39,4 +39,3 @@ export function AssetIdCopy({ assetId, className }: { assetId: string; className
     </div>
   );
 }
-

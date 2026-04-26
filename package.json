@@ -12,7 +12,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "discord:register-command": "node scripts/register-discord-command.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",

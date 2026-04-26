@@ -39,6 +39,18 @@ Vercel에서 GitHub 저장소를 Import 합니다.
 - `ADMIN_PASSWORD`
 - `ADMIN_SESSION_SECRET`
 
+디스코드 연동까지 쓸 경우 아래도 추가합니다.
+
+- `DISCORD_PUBLIC_KEY`
+- `DISCORD_COMMAND_NAME` (예: `songrequest`)
+- `DISCORD_BOT_TOKEN` (명령 등록 스크립트 실행 시 필요)
+- `DISCORD_APPLICATION_ID` (명령 등록 스크립트 실행 시 필요)
+- `DISCORD_GUILD_ID` (선택)
+
+시트 연동까지 쓸 경우 아래도 추가합니다.
+
+- `SHEET_INGEST_SECRET`
+
 이 저장소에는 배포 설정이 이미 들어 있습니다.
 
 - `vercel.json`
@@ -50,6 +62,25 @@ Vercel에서 GitHub 저장소를 Import 합니다.
 1. Prisma Client 생성
 2. Prisma 마이그레이션 배포
 3. Next.js 빌드
+
+## Discord 인터랙션 엔드포인트
+
+디스코드 개발자 포털에서 아래 URL을 `Interactions Endpoint URL`로 설정합니다.
+
+```text
+https://your-project.vercel.app/api/discord/interactions
+```
+
+## Google Sheets 연동 엔드포인트
+
+시트에서 관리자 로그인 없이 바로 등록하려면 아래를 호출합니다.
+
+```text
+POST https://your-project.vercel.app/api/sheets/songs
+header: x-sheet-ingest-secret: <SHEET_INGEST_SECRET>
+```
+
+요청 바디는 기존 Song 등록 스키마를 그대로 사용합니다.
 
 ## 4. 배포 주소 확인
 
@@ -79,4 +110,3 @@ $env:PGPASSWORD='postgres'
 ```powershell
 & 'C:\Program Files\PostgreSQL\18\bin\psql.exe' "DIRECT_URL_실제값" -f songs-data.sql
 ```
-

@@ -7,13 +7,48 @@
     color-scheme: dark;
   }
 
-  html,
-  body {
-    height: 100%;
+  * {
+    @apply border-zinc-800;
+  }
+
+  html {
+    min-height: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased;
+    min-height: 100%;
+    background-color: #09090b;
+    background-image:
+      radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 30%),
+      radial-gradient(circle at top right, rgba(16, 185, 129, 0.12), transparent 24%),
+      linear-gradient(180deg, rgba(24, 24, 27, 0.96), rgba(9, 9, 11, 1));
+    @apply text-zinc-100 antialiased;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  ::selection {
+    @apply bg-zinc-200 text-zinc-950;
   }
 }
 
+@layer components {
+  .app-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .app-surface {
+    @apply rounded-2xl border border-zinc-800/80 bg-zinc-950/70 shadow-[0_24px_80px_-32px_rgba(0,0,0,0.9)] backdrop-blur;
+  }
+
+  .page-grid {
+    @apply grid gap-4 lg:gap-6;
+  }
+
+  .muted-text {
+    @apply text-zinc-400;
+  }
+}

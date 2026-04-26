@@ -12,9 +12,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     <textarea
       ref={ref}
       className={cn(
-        "min-h-28 w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm text-zinc-100",
+        "min-h-32 w-full rounded-xl border border-zinc-800 bg-zinc-900/80 px-3 py-3 text-sm text-zinc-100",
         "placeholder:text-zinc-500",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
@@ -22,4 +22,3 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     />
   );
 });
-

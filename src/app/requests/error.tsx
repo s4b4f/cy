@@ -11,15 +11,14 @@ export default function RequestsError({ error, reset }: { error: Error & { diges
   }, [error]);
 
   return (
-    <Card>
+    <Card className="mx-auto max-w-2xl">
       <CardHeader>
-        <CardTitle>신청 목록을 불러오지 못했습니다</CardTitle>
+        <CardTitle>신청 게시판을 불러오지 못했습니다</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-center justify-between gap-3">
-        <div className="text-sm text-zinc-400">잠시 후 다시 시도해주세요.</div>
+      <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-sm leading-6 text-zinc-400">네트워크 상태 또는 서버 처리 오류일 수 있습니다. 다시 시도해도 반복되면 API 로그를 확인해야 합니다.</div>
         <Button onClick={reset}>다시 시도</Button>
       </CardContent>
     </Card>
   );
 }
-

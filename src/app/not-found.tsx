@@ -5,11 +5,11 @@ import { buttonClassName } from "@/components/ui/button";
 
 export default function NotFoundPage() {
   return (
-    <Card>
+    <Card className="mx-auto max-w-2xl">
       <CardHeader>
         <CardTitle>페이지를 찾을 수 없습니다</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-center gap-2">
+      <CardContent className="flex flex-wrap items-center gap-2">
         <Link href="/" className={buttonClassName({ variant: "default" })}>
           홈으로
         </Link>
@@ -20,4 +20,3 @@ export default function NotFoundPage() {
     </Card>
   );
 }
-

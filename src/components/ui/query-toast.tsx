@@ -39,7 +39,7 @@ export function QueryToast({ toast }: { toast?: string }) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-200"
+        "rounded-2xl border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-200"
       )}
       role="status"
     >

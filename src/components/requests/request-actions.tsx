@@ -15,8 +15,7 @@ export function RequestActions({ requestId, disabled }: Props) {
   const [submitting, setSubmitting] = React.useState<"APPROVED" | "REJECTED" | null>(null);
 
   async function update(status: "APPROVED" | "REJECTED") {
-    const rejectionReason =
-      status === "REJECTED" ? window.prompt("반려 사유를 입력해주세요.", "사유를 입력해주세요.")?.trim() : undefined;
+    const rejectionReason = status === "REJECTED" ? window.prompt("반려 사유를 입력해주세요.", "")?.trim() : undefined;
 
     if (status === "REJECTED" && !rejectionReason) {
       return;
@@ -79,4 +78,3 @@ export function RequestActions({ requestId, disabled }: Props) {
     </div>
   );
 }
-
